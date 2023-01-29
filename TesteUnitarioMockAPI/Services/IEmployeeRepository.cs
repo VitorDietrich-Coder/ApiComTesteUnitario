@@ -11,5 +11,6 @@ namespace TesteUnitarioMockAPI.Services
     public interface IEmployeeRepository
     {
         Task<Boolean> GetEmployeeDetails(int Id);
+        Task<string> GetNomeById(int Id);
     }
 }

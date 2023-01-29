@@ -34,23 +34,18 @@ namespace TesteUnitarioMockAPI.Controller
         }
 
         // GET: Employees/Details/5
-        [HttpGet("Details/GetEmployeeDetails/{id}")]
-        [SwaggerOperation("teste")]
+        [HttpGet("Details/{id}")]
+        [SwaggerOperation("GetNomeById")]
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult<IEnumerable<Usuario>>> Details(int? id)
+        public Task<string> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var employee = await _context.caduser.FirstOrDefaultAsync(m => m.Id == id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
-            return await _context.caduser.ToListAsync();
+            EmployeeService employeeService = new EmployeeService(_context);
+
+            var employee = employeeService.GetNomeById((int)id);
+
+            return employee;
         }
 
         // GET: Employees/Create

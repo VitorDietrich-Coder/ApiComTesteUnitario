@@ -16,10 +16,10 @@ namespace TesteUnitarioMockAPI.Services
         {
             _context = context;
         }
-        public async Task<string> GetEmployeebyId(int Id)
+        public async Task<string> GetNomeById(int Id)
         {
-            var nome = await _context.caduser.Where(c => c.Id == Id).Select(d => d.Nome).FirstOrDefaultAsync();
-            return nome;
+            var employee = await _context.caduser.FirstOrDefaultAsync(c => c.Id == Id);
+            return employee.Nome;
         }
 
         public async Task<Boolean> GetEmployeeDetails(int Id)
