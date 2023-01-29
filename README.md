@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/-Instagram-DF0174?style=flat-square&labelColor=DF0174&logo=instagram&logoColor=white&link=LINK-DO-SEU-INSTAGRAM"/></a>
 </p>  
 
-![GitHub repo size](https://img.shields.io/github/repo-size/VitorDietrich-CoderApiComTestes?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/VitorDietrich-Coder/ApiComTestes?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/VitorDietrich-Coder/ApiComTestes?style=for-the-badge)
 
 <p align="left">
