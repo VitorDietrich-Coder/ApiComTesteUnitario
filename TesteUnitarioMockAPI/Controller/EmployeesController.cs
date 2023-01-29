@@ -23,16 +23,22 @@ namespace TesteUnitarioMockAPI.Controller
             _context = context;
         }
 
-        public EmployeesController(IEmployeeRepository @object)
+        // GET: Employees/index
+        [HttpGet("index")]
+        [SwaggerOperation("GetCustomer2")]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.NotFound)]
+        public async Task<ActionResult<IEnumerable<Usuario>>> index()
         {
+            return await _context.caduser.ToListAsync();
         }
 
         // GET: Employees/Details/5
-        [HttpGet("Details/{id}")]
-        [SwaggerOperation("GetCustomer")]
+        [HttpGet("Details/GetEmployeeDetails/{id}")]
+        [SwaggerOperation("teste")]
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<ActionResult<IEnumerable<Usuario>>> Details(int? id)
         {
             if (id == null)
             {
@@ -44,12 +50,11 @@ namespace TesteUnitarioMockAPI.Controller
             {
                 return NotFound();
             }
-
-            return (IActionResult)employee;
+            return await _context.caduser.ToListAsync();
         }
 
         // GET: Employees/Create
-        [HttpGet]
+        [HttpGet("Create")]
         [SwaggerOperation("GetCustomer4")]
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
@@ -58,27 +63,27 @@ namespace TesteUnitarioMockAPI.Controller
             return NotFound();
         }
 
-        // POST: Employees/Create
+        // POST: Employees/Create/Usuario
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost("Employee")]
+        [HttpPost("Create/Usuario")]
         [SwaggerOperation("PostCustomer")]
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
         [SwaggerResponse((int)HttpStatusCode.Created)]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Email,Telefone,CpfCnpj,Senha")] Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Email,Telefone,CpfCnpj,Senha")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
+                _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return CreatedAtAction("Index", new {id = employee.Id}, employee);
+            return CreatedAtAction("Index", new {id = usuario.Id}, usuario);
         }
 
         // GET: Employees/Edit/5
-        [HttpGet("{id}")]
+        [HttpGet("Edit/{id}")]
         [SwaggerOperation("GetCustomer")]
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
@@ -100,14 +105,14 @@ namespace TesteUnitarioMockAPI.Controller
         // POST: Employees/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("Edit/Usuario")]
         [SwaggerOperation("PostCustomer5")]
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
         [SwaggerResponse((int)HttpStatusCode.Created)]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email,Telefone,CpfCnpj,Senha")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Email,Telefone,CpfCnpj,Senha")] Usuario usuario)
         {
-            if (id != employee.Id)
+            if (id != usuario.Id)
             {
                 return NotFound();
             }
@@ -116,12 +121,12 @@ namespace TesteUnitarioMockAPI.Controller
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.Id))
+                    if (!CadastroUsuarioExiste(usuario.Id))
                     {
                         return NotFound();
                     }
@@ -132,7 +137,7 @@ namespace TesteUnitarioMockAPI.Controller
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return (IActionResult)employee;
+            return (IActionResult)usuario;
         }
 
         // GET: Employees/Delete/5
@@ -170,7 +175,7 @@ namespace TesteUnitarioMockAPI.Controller
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmployeeExists(int id)
+        private bool CadastroUsuarioExiste(int id)
         {
             return _context.caduser.Any(e => e.Id == id);
         }

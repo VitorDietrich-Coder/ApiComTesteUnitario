@@ -1,6 +1,5 @@
 
 using Moq;
-using TesteUnitarioMockAPI.Controllers;
 using TesteUnitarioMockAPI.Model;
 using Microsoft.EntityFrameworkCore;
 using TesteUnitarioMockAPI.Services;
