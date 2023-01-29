@@ -18,11 +18,6 @@ namespace TesteUnitarioMockAPI.Controller
     {
         private readonly AppDbContext _context;
 
-        public EmployeesController(AppDbContext context)
-        {
-            _context = context;
-        }
-
         // GET: Employees/index
         [HttpGet("index")]
         [SwaggerOperation("GetCustomer2")]
@@ -30,7 +25,22 @@ namespace TesteUnitarioMockAPI.Controller
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<IEnumerable<Usuario>>> index()
         {
-            return await _context.caduser.ToListAsync();
+            return NotFound();
+        }
+
+        // GET: Employees/Details/5
+        [HttpGet("RetornaNome/{id}")]
+        [SwaggerOperation("GetNomeById")]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.NotFound)]
+        public Task<string> GetNome(int? id)
+        {
+
+            EmployeeService employeeService = new EmployeeService(_context);
+
+            var employee = employeeService.GetNomeById((int)id);
+
+          return employee;
         }
 
         // GET: Employees/Details/5
@@ -38,13 +48,10 @@ namespace TesteUnitarioMockAPI.Controller
         [SwaggerOperation("GetNomeById")]
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
-        public Task<string> Details(int? id)
+        public Task<bool> Details(int? id)
         {
-
             EmployeeService employeeService = new EmployeeService(_context);
-
-            var employee = employeeService.GetNomeById((int)id);
-
+            var employee = employeeService.GetEmployeeDetails((int)id);
             return employee;
         }
 

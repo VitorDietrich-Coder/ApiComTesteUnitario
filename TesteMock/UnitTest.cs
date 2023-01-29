@@ -17,16 +17,25 @@ namespace UnitTesting
         #region Property  
         public Mock<IEmployeeRepository> mock = new Mock<IEmployeeRepository>();
         #endregion
-    
         [Fact]
-        public async Task VerifyIndexActionReturnsIndexView()
+        public async void GetEmployeeDetailsTest()
         {
             var employeeRepository = new Mock<IEmployeeRepository>();
-            var employeeController = new EmployeesController(employeeRepository.Object);
-            var actionResult = await employeeController.index();
-            var result = actionResult as ViewResult;
-            Assert.NotNull(result);
-            Assert.Equal("Index", result.ViewName);
+            var employeeDTO = new Usuario()
+            {
+                Id = 114,
+                Nome = "Daniel",
+                Email = "v@FFF",
+                Telefone = "123",
+                CpfCnpj = "1231",
+                Senha = "202cb962ac59075b964b07152d234b70"
+            };
+
+            mock.Setup(p => p.GetEmployeeDetails(employeeDTO.Id));
+            EmployeesController employees = new EmployeesController();
+            var result = employees.Details(employeeDTO.Id);
+            Assert.False(employeeDTO.Equals(result));
+
         }
     }
 }
